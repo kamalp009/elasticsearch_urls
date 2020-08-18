@@ -1,0 +1,63 @@
+remove x-pack from kibana & elastic search 
+bin/elasticsearch-plugin remove x-pack
+
+curl -XPUT 'http://localhost:9200/_cluster/settings?pretty' -H 'Content-type: application/json' --data-binary $'{"persistent":{"cluster.routing.allocation.enable}:"primaries"}'
+
+curl -s 'http://localhost:9200/_cat/shards'
+curl -s 'http://localhost:9200/_cat/nodes?v&h=name,version,node.role,master' | column -t
+
+curl -s 'http://localhost:9200/_flush/synced?pretty'
+curl 'http://localhost:9200/_cluster/health?pretty'
+
+curl -X PUT "localhost:9200/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+
+sudo -i service elasticsearch stop
+bin/elasticsearch-plugin remove x-pack
+
+
+
+
+
+
+curl -XGET "http://localhost/_cluster/health
+
+
+curl -u elastic https://localhost:9200/_xpack/security/_authenticate
+
+
+curl -u kibana https://localhost:9200/_xpack/security/_authenticate
+
+curl -u kibana:Kn2nRDwMFdW0qXCKsNHK http://localhost:9200/_xpack/security/_authenticate?pretty
+curl -u elastic:B4UZjg2QgXOUOfm73FUW http://localhost:9200/_xpack/security/_authenticate?pretty
+
+curl -u elastic:B4UZjg2QgXOUOfm73FUW http://localhost:9200/_license
+
+curl -u elastic:B4UZjg2QgXOUOfm73FUW http://localhost:5601/
+
+curl -u elastic:B4UZjg2QgXOUOfm73FUW http://localhost:5601/api/saved_objects/_find?type=index-patter
+
+curl -u logstash_system:Xhx8SWrijt0Xe5paCUei http://localhost:5601/api/status
+
+curl -u elastic:B4UZjg2QgXOUOfm73FUW http://localhost:9200/_security/user/admin
+
+
+{"statusCode":401,"error":"Unauthorized","message":"[security_exception] unable to authenticate user [admin] for REST request [/_xpack/security/_authenticate], with { header={ WWW-Authenticate=\"Basic realm=\\\"security\\\" charset=\\\"UTF-8\\\"\" } }"}
+
+
+curl -u admin -XPUT 'http://localhost:9200/_xpack/security/user/elastic/_password?pretty' -H 'Content-Type: application/json' -d'{"password" : "kuliza@123" }
+
+
+curl -X GET "localhost:9200/_security/user?pretty"
+
+
+https://discuss.elastic.co/t/kibana-management-missing-role-management/112878/2
+
+
+
+curl -XPOST -u elastic:B4UZjg2QgXOUOfm73FUW 'http://0.0.0.0:9200/_xpack/license?acknowledge=true' -H "Content-Type: application/json" -d @license.json
+
+curl -X GET -u elastic:B4UZjg2QgXOUOfm73FUW "localhost:9200/_xpack/license?pretty"
+curl -XGET -u elastic:B4UZjg2QgXOUOfm73FUW "http://0.0.0.0:9200/api/license/refresh"
+
+
+curl -XPUT 'http://0.0.0.0:9200/_xpack/license?acknowledge=true' -H "Content-Type: application/json" -d @license.json
